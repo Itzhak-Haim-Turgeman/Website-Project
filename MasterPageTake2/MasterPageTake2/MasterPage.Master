@@ -1,0 +1,167 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterPage.Master.cs" Inherits="MasterPageTake2.Site1" %>
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <title>Isaac's Shoe Store</title>
+    <style type="text/css">
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        /* Header Styling */
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: #fff;
+            padding: 25px 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255,255,255,0.1);
+            transform: skew(-15deg);
+        }
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            letter-spacing: -1px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Menu Styling */
+        .menu {
+            background-color: #34495e;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 50px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .menu-links {
+            display: flex;
+            gap: 20px;
+        }
+        .menu a {
+            color: #ecf0f1;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        .menu a:hover {
+            background-color: #2980b9;
+            color: white;
+            transform: translateY(-2px);
+        }
+        .clock {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        .login-msg {
+            color: #ecf0f1;
+            font-size: 0.9rem;
+        }
+
+        /* Content Area */
+        .content {
+            padding: 30px;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            min-height: calc(100vh - 250px);
+        }
+
+        /* Footer Styling */
+        .footer {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            text-align: center;
+            padding: 15px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            font-style: italic;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .menu {
+                flex-direction: column;
+                padding: 15px;
+                gap: 15px;
+            }
+            .menu-links {
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+            }
+            .menu a {
+                width: 100%;
+                text-align: center;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+    <script type="text/javascript">
+        function updateClock() {
+            var now = new Date();
+            var hours = now.getHours();
+            var minutes = now.getMinutes();
+            var seconds = now.getSeconds();
+            hours = hours < 10 ? '0' + hours : hours;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+            var timeString = hours + ':' + minutes + ':' + seconds;
+            document.getElementById('clock').textContent = timeString;
+        }
+        setInterval(updateClock, 1000);
+        window.onload = updateClock;
+    </script>
+    <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
+</head>
+<body>
+    <div class="header">
+        <h1>Isaac's Shoe Store</h1>
+    </div>
+    <div class="menu">
+        <div id="clock" class="clock"></div>
+        <div class="menu-links">
+            <a href="MainPage.aspx">Home</a>
+            <a href="Schedule.aspx">Schedule</a>
+            <a href="AdminLogin.aspx">Admin Login</a>
+            <a href="NikeStore.aspx">Nike Shoes</a>
+            <a href="AdidasStore.aspx">Adidas Shoes</a>
+        </div>
+        <div class="login-msg">
+            <%= loginMsg %>
+        </div>
+    </div>
+    <div class="content">
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
+    </div>
+    <div class="footer">
+        Users counter: <%= Application["counter"] %>
+    </div>
+</body>
+</html>
